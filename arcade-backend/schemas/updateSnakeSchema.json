@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "title": "The root schema",
+    "properties": {
+        "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 15
+        },
+        "score": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 160
+        }
+    },
+    "additionalProperties": false,
+      "required": [
+        "name"
+    ]
+  }
