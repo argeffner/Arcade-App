@@ -41,14 +41,17 @@ function SnakeBoard() {
     dispatch(getSnake())
   }, [dispatch, maxScore]);
 
+
   // useEffect hook for moving snake
   useInterval(() => theSnake(), speed);
+
 
   // Pass new data into API and update current score data
     const add =  (newScore) => {
 			dispatch(addSnake(newScore));
       // console.log(newScore);
 		}
+
 
   // End the game 
   const endGame = () => {
@@ -59,6 +62,7 @@ function SnakeBoard() {
     setGameOver(true);
     setStillPlaying(false);
   };
+
 
   // gets keycodes from directions 
   const moveSnake = (e) => {
@@ -75,9 +79,11 @@ function SnakeBoard() {
     ;
   };
 
+
   // create a randomized location for the apple (scale item from canvas size)
   const createApple = () =>
     apple.map((a, i) => Math.floor(Math.random() * (CANVAS_SIZE[i] / SCALE)));
+    
 
   // checks if snake hit itself or if it went out of bounds
   const checkCollision = (cell, s=snake) => {
@@ -117,6 +123,7 @@ function SnakeBoard() {
     return false;
   }
   
+
   // establish initial settings for start of game
   const startGame = () => {
     setSnake(SNAKE_START);
@@ -131,6 +138,7 @@ function SnakeBoard() {
     wrapperRef.current?.focus();
   };
   
+
   // build the snake throughout moving and eating. Every added movement changes 
   const theSnake = () => {
     const snakeCopy = [...snake];
@@ -144,26 +152,29 @@ function SnakeBoard() {
     setSnake(snakeCopy);
   };
 
+
   // useEffect for setting initial game board
   useEffect(() => {
     let ap = Apple;
     let Sapple = new Image();
     Sapple.src = ap;
+    // draw the canvas
     const context = canvasRef.current.getContext("2d");
     context.setTransform(SCALE, 0, 0, SCALE, 0, 0);
     context.clearRect(0, 0, CANVAS_SIZE[0], CANVAS_SIZE[1]);
-    // snake drawing
+    // snake drawing part
     context.fillStyle = "green";
     snake.forEach(function([x, y]) {context.fillRect(x, y, 1, 1)});
-    // apple drawing
+    // apple drawing part
     context.fillStyle = "light-green";
-    context.drawImage(Sapple, apple[0], apple[1], 1, 1)
     // circle surrounds the apple for better visual
     let circle = new Path2D();
     circle.arc(apple[0]+0.5, apple[1]+0.5, 0.5, 0, 2*Math.PI);
     context.fill(circle);
+    // draw the apple
     context.drawImage(Sapple, apple[0], apple[1], 1, 1)
   }, [snake, apple, gameOver]);
+
 
   // disable arrow key scrolling 
   // code from stackoverflow
@@ -173,6 +184,7 @@ function SnakeBoard() {
     }
   }, false);
   
+
   // force reload function for adding data to correct minor bug 
   // which only fixes async data after refreshing the page 
   // redux didn't fix issue even when redux state is updated
@@ -180,6 +192,7 @@ function SnakeBoard() {
     window.location.reload(false);
   }
 
+  
   return (
     <div className="wrapper">
     <h1 className='title'>Classic Snake Game</h1>

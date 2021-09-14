@@ -12,7 +12,7 @@ const DIRECTIONS = {
   37: [-1, 0], // left
   39: [1, 0] // right
 };
-const MAX_SCORE = 1400;
+const MAX_SCORE = 1200;
 export {
   CANVAS_SIZE,
   SNAKE_START,

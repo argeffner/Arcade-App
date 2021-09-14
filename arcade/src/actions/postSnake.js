@@ -1,7 +1,6 @@
-// import axios from "axios";
 import { CREATE_NEW_SNAKE } from "./types";
-// import {BASE_API_URL} from "../Api"
-import {ArcadeScores1} from "../frontAPI"
+import ArcadeScores from "../Api"
+// import ArcadeScores1 from "../frontAPI"
 
 /** GetSnake
  * 
@@ -11,21 +10,21 @@ import {ArcadeScores1} from "../frontAPI"
  * 
  */
 
- function addSnake(newSnake) {
+//  function addSnake(newSnake) {
+//   return async function (dispatch) {
+//     let snakeData = await ArcadeScores1.addSnake(newSnake);
+//     let newsnake = snakeData;
+//     dispatch(addNewSnake(newsnake))
+//   }
+// }
+
+function addSnake(newSnake) {
   return async function (dispatch) {
-    let snakeData = await ArcadeScores1.addSnake(newSnake);
+    let snakeData = await ArcadeScores.addSnake(newSnake);
     let newsnake = snakeData;
     dispatch(addNewSnake(newsnake))
-  }
+  };
 }
-
-// function addSnake(newSnake) {
-//   return async function (dispatch) {
-//     const result = await axios.post(`${BASE_API_URL}/snake`, { ...newSnake });
-//     let newsnake = result.data;
-//     dispatch(addNewSnake(newsnake))
-//   };
-// }
 
 function addNewSnake(newsnake) {
   return { type: CREATE_NEW_SNAKE, payload: newsnake };

@@ -1,7 +1,6 @@
-// import axios from "axios";
 import { LOAD_SNAKE_ALL } from "./types";
-// import {BASE_API_URL} from "../Api"
-import {ArcadeScores1} from "../frontAPI"
+import ArcadeScores from "../Api"
+// import {ArcadeScores1} from "../frontAPI"
 
 /** GetSnake
  * 
@@ -11,21 +10,21 @@ import {ArcadeScores1} from "../frontAPI"
  * 
  */
 
- function getAllSnake() {
-  return async function (dispatch) {
-    let snakeData = await ArcadeScores1.getSnake();
-    let allScores = snakeData;
-    dispatch(gotAllScores(allScores))
-  }
-}
-
-// function getAllSnake() {
+//  function getAllSnake() {
 //   return async function (dispatch) {
-//     const result = await axios.get(`${BASE_API_URL}/snake?_sort=score&_order=desc`);
-//     let allScores = result.data;
+//     let snakeData = await ArcadeScores1.getSnake();
+//     let allScores = snakeData;
 //     dispatch(gotAllScores(allScores))
-//   };
+//   }
 // }
+
+function getAllSnake() {
+  return async function (dispatch) {
+    const result = await ArcadeScores.getSnake();
+    let allScores = result;
+    dispatch(gotAllScores(allScores))
+  };
+}
 
 function gotAllScores(allScores) {
   return { type: LOAD_SNAKE_ALL, payload: allScores };
