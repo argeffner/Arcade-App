@@ -1,6 +1,6 @@
 import { CREATE_NEW_SNAKE } from "./types";
-import ArcadeScores from "../Api"
-// import ArcadeScores1 from "../frontAPI"
+// import ArcadeScores from "../Api"
+import ArcadeScores1 from "../frontAPI"
 
 /** GetSnake
  * 
@@ -10,21 +10,21 @@ import ArcadeScores from "../Api"
  * 
  */
 
-//  function addSnake(newSnake) {
-//   return async function (dispatch) {
-//     let snakeData = await ArcadeScores1.addSnake(newSnake);
-//     let newsnake = snakeData;
-//     dispatch(addNewSnake(newsnake))
-//   }
-// }
-
-function addSnake(newSnake) {
+ function addSnake(newSnake) {
   return async function (dispatch) {
-    let snakeData = await ArcadeScores.addSnake(newSnake);
+    let snakeData = await ArcadeScores1.addSnake(newSnake);
     let newsnake = snakeData;
     dispatch(addNewSnake(newsnake))
-  };
+  }
 }
+
+// function addSnake(newSnake) {
+//   return async function (dispatch) {
+//     let snakeData = await ArcadeScores.addSnake(newSnake);
+//     let newsnake = snakeData;
+//     dispatch(addNewSnake(newsnake))
+//   };
+// }
 
 function addNewSnake(newsnake) {
   return { type: CREATE_NEW_SNAKE, payload: newsnake };

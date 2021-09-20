@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect} from "react";
 import { Card,
          CardBody, 
          CardTitle, 
@@ -8,25 +8,23 @@ import { Card,
 import { Link } from 'react-router-dom'; 
 // import pacman from './gameImages/pacman.png';
 import snake from './gameImages/snake.jpg';
-import ArcadeScores1 from './frontAPI';
-// import ArcadeScores from './Api';
+import { useSelector, useDispatch } from "react-redux";
+import { getAllSnake } from "./actions/snakeData";
 import './Home.css';
 import PlayMusic from "./retro-music/PlayMusic";
 
 function Home() {
-  
-  const [scores, setScores] = useState([]);
 
-//   useEffect for Snake game Scores
+  localStorage.clear();
+  const allScores = useSelector(st => st.allSnakeScores);
+  const dispatch = useDispatch();
+
+  // useEffect for Snake game Scores
   useEffect(() => {
-    async function getAPIData() {
-      setScores( await ArcadeScores1.getSnake());
-      // setScores( await ArcadeScores.getSnake());
-    }
-    getAPIData();
-  }, []);
+    dispatch(getAllSnake())
+  }, [dispatch]);
   
-  const Players = scores.map((player, index) => {
+  const Players = allScores.map((player, index) => {
     return (
       <div key={index}>
         <h3 className='player' data-testid="player">Player: {player.name}</h3>

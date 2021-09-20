@@ -15,17 +15,17 @@ function Home() {
 
   localStorage.clear();
 
-  const [scoreObj, setScoreObj] = useState([]);
+  const [scores, setScores] = useState([]);
 
 //   useEffect for Snake game Scores
   useEffect(() => {
     async function getAPIData() {
-      setScoreObj( await ArcadeScores.getSnake());
+      setScores( await ArcadeScores.getSnake());
     }
     getAPIData();
   }, []);
   
-  const Players = scoreObj.map((player, index) => {
+  const Players = scores.map((player, index) => {
     return (
       <div key={index}>
         <h3 className='player' data-testid="player">Player: {player.name}</h3>

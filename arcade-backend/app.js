@@ -1,19 +1,18 @@
 /** Express Backend app for arcade. */
 
 const express = require("express");
-const cors = require("cors");
 
 const ExpressError = require("./expressError");
-
 const snakeRoutes = require("./routes/Snake");
 
-const morgan = require("morgan");
+// const morgan = require("morgan");
+const cors = require("cors");
 
 const app = express();
 
 app.use(cors());
+// app.use(morgan("tiny"));
 app.use(express.json());
-app.use(morgan("tiny"));
 
 app.use("/snake", snakeRoutes);
 

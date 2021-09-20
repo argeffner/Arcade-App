@@ -1,70 +1,35 @@
-# Getting Started with Create React App
+# Arcade App
+Capstone 2 for Springboard
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is deployed [here](), using Heroku and Surge.sh.
 
-## Available Scripts
+## Description
 
-In the project directory, you can run:
+The Arcade App is used to play a number of retro arcade games (more will be added in later) which currently includes the snake game. Players who got a score highers than the existing highest score will have the ability to but in their name or anything they choose as thier player name. Players get to experience lsiting to retro game music for each game, including the main page, and can see order of scores for each game at the home page.
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Currently implemented features include:
+- Collection of players and scores, including getting new scores like arcades
+- Ability to listen to the background music, and to turn off if one chooses
+- Easy return to home page at any point in time during game play
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+These features were what I considered the minimum viable product. More will be added in time.
 
-### `npm test`
+## Tests
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The backend can be tested by navigating to the /arcade-backend/ folder and running `jest -i`. The frontend can be tested (after running `npm install`) using `npm test`.
 
-### `npm run build`
+## Example user flow
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+User simply enters the homepage and gets to navigate through a selection of retro games. Part of the homepage includes data that is retreived from the backend API using Redux. This allows player to so all scores from each game. Once individual selects a game they are sent to the route for game they chose. The Game's page will have the player's score located at the top right window which will change dynamically based on gaining points in the game. Once player clicks the start game, they will keep increasing personal score. At the end of the game, user will get to see the highscore of the game and personal high score. If indiviual's score is higher than the highest score then they will get a small imput box to put the player name they choose. The player can add name with personal high score by hitting the submit button and restart game or they can choose to not to submit data by simply clicking the restart without hitting the submit button.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## API 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Initially, this project this project was supposed to include PacMan but it will take more time to work in order to deploy the front end. I used my own API using Express.js to store the scores. I started by designing the database schema, then by implementing basic models for each of the main types of object (snake, pacman, other games). I simply added basic "CRUD" functionality for each model, but I will likely implement changes that will make more complex interactions. I then finished by coding routes for each game (at the moment it only includes the snake game), corresponding to the functions I had implemented to them.
 
-### `npm run eject`
+## Technology stack
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+The front end was built using Node.js, and specifically using React.js. I used libraries including react-router-dom, react-bootstrap, and axios.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The back end was also built using Node.js, and in this case with Express.js. The database is PostgreSQL, with node-pg used as a library to link the database and the Express server.

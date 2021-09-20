@@ -1,5 +1,4 @@
 import {useState, useEffect, useRef} from 'react';
-import ArcadeScores1 from '../frontAPI';
 // import ArcadeScores from '../Api';
 import {
   CANVAS_SIZE,
@@ -14,9 +13,14 @@ import {useInterval} from '../Snake/Interval';
 import './SnakeBoard.css';
 import Apple from '../gameImages/apple.png';
 import ScoreForm from '../NewScoreForm';
+import { useSelector, useDispatch } from "react-redux";
+import { getSnake } from "../actions/maxSnake";
+import { addSnake } from "../actions/postSnake";
 
 function SnakeBoard() {
   let myhighscore = localStorage.getItem("myhighscore") || 0;
+  const maxScore = useSelector(st => st.maxSnakeScore);
+  const dispatch = useDispatch();
 
   const canvasRef = useRef();
   const wrapperRef = useRef();
@@ -28,26 +32,14 @@ function SnakeBoard() {
   const [stillPlaying, setStillPlaying] = useState(false);
   const [score, setScore] = useState(0);
   const [forcedFinish, setForcedFinish] = useState(false);
-  const [highScore, setHighScore] = useState(0);
   const [myHighScore, setMyHighScore] = useState(0);
-  const [allScores, setAllScores] = useState([]);
-  const [newMax, setNewMax] = useState(0);
 
 
   // useEffect for getting highscore data from API
   // Old way using useState
   useEffect(() => {
-    async function getHighScore() {
-      let snakeData = await ArcadeScores1.getSnake();
-      let maxScore = snakeData[0].score;
-      // let snakeData = await ArcadeScores.getSnake();
-      // let maxScore = snakeData[0].score;
-      // if database is empty then it returns 0 as maxscore
-      setHighScore(maxScore || 0);
-      setAllScores(snakeData)
-    }
-    getHighScore();
-  }, []);
+    dispatch(getSnake())
+  }, [dispatch, maxScore]);
 
 
   // useEffect hook for moving snake
@@ -55,15 +47,10 @@ function SnakeBoard() {
 
 
   // Pass new data into API and update current score data
-  const add = async (newScore) => {
-    await ArcadeScores1.addSnake(newScore);
-    // await ArcadeScores.addSnake(newScore);
-    console.log(newScore);
-    setAllScores((allScores) => [ ...allScores, newScore ]);
-    let newMaxScore = allScores.reduce((a,b) => (a.score > b.score) ? a.score : b.score, 0);
-    setNewMax(newMaxScore);
-    setHighScore(newMaxScore);
-  }
+    const add =  (newScore) => {
+			dispatch(addSnake(newScore));
+      // console.log(newScore);
+		}
 
 
   // End the game 
@@ -74,8 +61,6 @@ function SnakeBoard() {
     setSpeed(null);
     setGameOver(true);
     setStillPlaying(false);
-    let trueHighest = (newMax > highScore) ? newMax : highScore;
-    setHighScore(trueHighest);
   };
 
 
@@ -149,8 +134,6 @@ function SnakeBoard() {
     setStillPlaying(true);
     setScore(0);
     setForcedFinish(false);
-    let trueHighest = (newMax > highScore) ? newMax : highScore;
-    setHighScore(trueHighest);
     setMyHighScore(myhighscore);
     wrapperRef.current?.focus();
   };
@@ -234,10 +217,10 @@ function SnakeBoard() {
       {gameOver 
       ? <div className="game-over" data-testid="game-over">Game Over 
           <div className="high-score" data-testid="highscore-end">
-            <h4>High-Score: {(score > highScore) ? score : highScore}</h4>
+            <h4>High-Score: {(score > maxScore) ? score : maxScore}</h4>
             <h4>My High-Score: {myHighScore}</h4>
           </div> 
-          {score > highScore 
+          {score > maxScore 
            ? <ScoreForm className='form' add={add} score={score} forAPI={refresh}
               style={{fontSize: '25px'}}/>
            : <p className='not-form'> You can do better</p>
@@ -245,7 +228,7 @@ function SnakeBoard() {
         </div> 
       : <div className="new-game" data-testid="new-game">New Game 
           <div className="high-score" data-testid="highscore-start">
-            <h4>High-Score: {highScore}</h4>
+            <h4>High-Score: {maxScore}</h4>
             <h4>My High-Score: {myHighScore}</h4>
           </div> 
         </div>

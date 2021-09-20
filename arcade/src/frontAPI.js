@@ -22,13 +22,14 @@ class ArcadeScores1 {
     //there are multiple ways to pass an authorization token, this is how you pass it in the header.
     //this has been provided to show you another way to pass the token. you are only expected to read this code for this project.
     const url = `${BASE_URL}/${endpoint}`;
-    // const headers = { Authorization: `Bearer ${JoblyApi.token}` };
+    // console.log(`url: ${url}`)
+    const headers = {'Content-Type': 'application/json'};
     const params = (method === "get")
         ? data
         : {};
 
     try {
-      return (await axios({ url, method, data, params, /*headers*/ })).data;
+      return (await axios({ url, method, data, params, headers })).data;
     } catch (err) {
       console.error("API Error:", err.response);
       let message = err.response.data.error.message;
@@ -42,15 +43,17 @@ class ArcadeScores1 {
 
    static async getSnake() {
     let res = await this.request(`snake/`);
-    return res.data;
+    // console.log('getsnake' +JSON.stringify(res));
+    return res.snake;
   }
 
    /** Add new snake data to API */
 
-   static async addSnake(newSnake) {
-    let res = await this.request(`users/${newSnake}`, {}, 'post');
-    return res.data;
-  }
+  static async addSnake(newSnake) {
+		const result = await axios.post(`${BASE_URL}/snake`, { ...newSnake });
+    // console.log('getsnake' +JSON.stringify(result));
+		return result.data;
+	}
 
 }
 

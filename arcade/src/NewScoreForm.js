@@ -5,7 +5,7 @@ const NewScoreForm = ({ add, score, forAPI }) => {
 	
 	const INITIAL_STATE = {
 		name  : '',
-		score : `${score}`
+		score : score,
 	};
 	const [ formData, setFormData ] = useState(INITIAL_STATE);
 	const [show, setShow] = useState(true);

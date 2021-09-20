@@ -2,29 +2,24 @@
   "snake": [
     {
       "name": "ASD",
-      "score": "5",
-      "id": "FyMUurE"
+      "score": 5,
+      "id": 3
     },
     {
-      "name": "jon",
-      "score": "5",
-      "id": "-fIvR7b"
+      "name": "Wilburt",
+      "score": 6,
+      "id": 4
     },
     {
-      "name": "tester-man",
-      "score": "6",
-      "id": "_mGXR7k"
-    },
-    {
-      "name": "great",
-      "score": "7",
-      "id": "W86gefQ"
+      "name": "clamp",
+      "score": 7,
+      "id": 5
     }
   ],
   "pacman": [
     {
       "name": "corncob123",
-      "score": "10",
+      "score": 10,
       "id": "corncob123"
     }
   ]

@@ -25,15 +25,16 @@ router.get("/", async function (req, res, next) {
 });
 
 /** GET /[name]  => {name: name} */
+// Need to determine if I need this route at all
 
-router.get("/:name", async function (req, res, next) {
-  try {
-    const snake = await Snake.findOne(req.params.name);
-    return res.json({ snake });
-  } catch (err) {
-    return next(err);
-  }
-});
+// router.get("/:name", async function (req, res, next) {
+//   try {
+//     const snake = await Snake.findOne(req.params.name);
+//     return res.json({ snake });
+//   } catch (err) {
+//     return next(err);
+//   }
+// });
 
 /** POST /   snakeData => {snake: snakeData}  */
 
@@ -54,36 +55,38 @@ router.post("/", async function (req, res, next) {
 });
 
 /** PUT /[name]   snakeData => {snake: updateSnake}  */
+// May use route in case spefic login user is created 
 
-router.put("/:name", async function (req, res, next) {
-  try {
-    // make sure that name is not in the updated version
-    if ("name" in req.body) {
-      let error = new ExpressError("Can't have existing name", 400);
-      return next(error);
-    }
-    const result = jsonschema.validate(req.body, updateSnakeSchema);
-    if (!result.valid) {
-      let errorList = result.errors.map(e => e.stack);
-      let error = new ExpressError(errorList, 400);
-      return next(error);
-      }
-    const snake = await Snake.update(req.params.name, req.body);
-    return res.json({ snake });
-  } catch (err) {
-    return next(err);
-  }
-});
+// router.put("/:name", async function (req, res, next) {
+//   try {
+//     // make sure that name is not in the updated version
+//     if ("name" in req.body) {
+//       let error = new ExpressError("Can't have existing name", 400);
+//       return next(error);
+//     }
+//     const result = jsonschema.validate(req.body, updateSnakeSchema);
+//     if (!result.valid) {
+//       let errorList = result.errors.map(e => e.stack);
+//       let error = new ExpressError(errorList, 400);
+//       return next(error);
+//       }
+//     const snake = await Snake.update(req.params.name, req.body);
+//     return res.json({ snake });
+//   } catch (err) {
+//     return next(err);
+//   }
+// });
 
 /** DELETE /[name]   => {message: "Player data deleted"} */
+// Delete route not needed at the moment
 
-router.delete("/:name", async function (req, res, next) {
-  try {
-    await Snake.remove(req.params.name);
-    return res.json({ message: "Player data deleted" });
-  } catch (err) {
-    return next(err);
-  }
-});
+// router.delete("/:name", async function (req, res, next) {
+//   try {
+//     await Snake.remove(req.params.name);
+//     return res.json({ message: "Player data deleted" });
+//   } catch (err) {
+//     return next(err);
+//   }
+// });
 
 module.exports = router;

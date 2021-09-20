@@ -31,7 +31,7 @@ class ArcadeScores {
 
   //  add snake data
 	static async addSnake(newSnake) {
-		const result = await axios.post(`${BASE_API_URL}/snake`, { ...newSnake });
+		const result = await axios.post(`${BASE_API_URL}/snake?_sort=score&_order=desc`, { ...newSnake });
 		return result.data;
 	}
 

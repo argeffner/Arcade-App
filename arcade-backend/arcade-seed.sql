@@ -2,9 +2,9 @@
 
 INSERT INTO snake (name, score)
 VALUES ('testuser',
-        '12'
+        12
        ),
        ('fakeman',
-        '5'
+        5
        );
 
