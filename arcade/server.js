@@ -1,3 +1,5 @@
+// Alternative to deploying backend to heroku 
+// I do not recommend 
 const jsonServer = require('json-server');
 const app = jsonServer.create();
 const path = require('path');
@@ -13,4 +15,4 @@ app.get('/*', function (req, res) {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-server.listen(port);
+app.listen(port);
